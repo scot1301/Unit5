@@ -9,7 +9,7 @@ public class Task {
 
     @Override
     public String toString() {
-        return "Name: " + name + "\nDescription: " + description + "\n===============\n";
+        return "Name: " + name + "\nDescription: " + description + "\n=================\n";
     }
     
     

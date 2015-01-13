@@ -45,6 +45,9 @@
             </MenuItem>
             <MenuItem class="javax.swing.JMenuItem" name="removetask">
               <Properties>
+                <Property name="accelerator" type="javax.swing.KeyStroke" editor="org.netbeans.modules.form.editors.KeyStrokeEditor">
+                  <KeyStroke key="Shift+Ctrl+R"/>
+                </Property>
                 <Property name="text" type="java.lang.String" value="Remove Current Task"/>
               </Properties>
               <Events>
@@ -53,6 +56,9 @@
             </MenuItem>
             <MenuItem class="javax.swing.JMenuItem" name="restorecurrenttask">
               <Properties>
+                <Property name="accelerator" type="javax.swing.KeyStroke" editor="org.netbeans.modules.form.editors.KeyStrokeEditor">
+                  <KeyStroke key="Ctrl+R"/>
+                </Property>
                 <Property name="text" type="java.lang.String" value="Restore Current Task to Screen"/>
               </Properties>
               <Events>

@@ -170,6 +170,7 @@ Task t;
         });
         edit.add(replaceascurrenttask);
 
+        removetask.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_R, java.awt.event.InputEvent.SHIFT_MASK | java.awt.event.InputEvent.CTRL_MASK));
         removetask.setText("Remove Current Task");
         removetask.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -178,6 +179,7 @@ Task t;
         });
         edit.add(removetask);
 
+        restorecurrenttask.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_R, java.awt.event.InputEvent.CTRL_MASK));
         restorecurrenttask.setText("Restore Current Task to Screen");
         restorecurrenttask.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -372,7 +374,7 @@ Task t;
             lblctask.setText("N/A");
             return;
         }
-        if(tottask>1)
+        else if(tottask>1)
         {
             li.next();
             t=(Task)li.previous();
@@ -406,34 +408,33 @@ Task t;
     }//GEN-LAST:event_beforetaskActionPerformed
 
     private void restorecurrenttaskActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_restorecurrenttaskActionPerformed
-        // TODO add your handling code here:
+        txtname.setText(t.getName());
+        txtdesc.setText(t.getDescription());
     }//GEN-LAST:event_restorecurrenttaskActionPerformed
 
     private void btnprevActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnprevActionPerformed
-        if(curtask==tottask)return;
-        curtask++;
+        if(curtask==1)return;
+        curtask--;
         lblctask.setText("" + curtask);
-        li.previous();
-        li.previous();
-        t=(Task)li.next();
+        t =(Task)li.previous();
+        //li.previous();
+        //t=(Task)li.next();
         txtname.setText(t.getName());
         txtdesc.setText(t.getDescription());
     }//GEN-LAST:event_btnprevActionPerformed
 
     private void btnfirstActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnfirstActionPerformed
-        if (curtask==tottask)return;
+        if (curtask==1)return;
         while(li.hasPrevious())
-            li.previous();
-        t=(Task)li.next();
-        curtask=tottask;
+           t=(Task) li.previous();
+       
+        curtask=1;
         lblctask.setText("" + curtask);
         txtname.setText(t.getName());
         txtdesc.setText(t.getDescription());
     }//GEN-LAST:event_btnfirstActionPerformed
 
-    /**
-     * @param args the command line arguments
-     */
+    
     public static void main(String args[]) {
         /* Set the Nimbus look and feel */
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
