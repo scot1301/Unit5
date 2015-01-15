@@ -12,8 +12,12 @@ public class LinkedPriorityQueue implements PriorityQueue {
             list[x] = new ArrayList();
         }
     }
-    public Object dequeue() {
-        //identical to peekfront but you remove 
+    public Object dequeue(int i) {
+        //identical to peekfront but you remove
+        if (list[i].isEmpty())
+			throw new IllegalStateException
+				("Queue is empty");
+		return list[i].remove(0);
         //from the first non empty list instead of just get
     }
     

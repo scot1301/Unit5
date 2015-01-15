@@ -21,10 +21,10 @@ public class RadioCallinShow {
         System.out.println("The next caller will be " + phoneline.peekFront());
         System.out.println("We still have " + phoneline.size() + " callers left.");
         System.out.println("Emptying the queue - take the rest of the callers");
-        while(true){
+        /*while(true){
             if(phoneline.isEmpty())break;
             System.out.println(phoneline.dequeue());
-        }
+        }*/
         
     }
     

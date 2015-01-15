@@ -22,14 +22,10 @@ public class Patient {
         return condition;
     }
     
-    public void setDescription(String condition) {
-        this.condition = condition;
-    }
-    
-    public boolean validate(){
+    /*public boolean validate(){
         if (name == null || condition == null || name.equals("") || condition.equals(""))
             return false;
         else 
             return true;
-    }
+    }*/
 }
