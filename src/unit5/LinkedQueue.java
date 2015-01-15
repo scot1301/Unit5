@@ -30,4 +30,5 @@ public class LinkedQueue implements Queue{
 	public int size(){
 		return list.size();
 	}
+
 }
