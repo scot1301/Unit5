@@ -28,7 +28,7 @@
           <SubComponents>
             <MenuItem class="javax.swing.JMenuItem" name="menushowranked">
               <Properties>
-                <Property name="text" type="java.lang.String" value="Show Ranked Patients"/>
+                <Property name="text" type="java.lang.String" value="Show Scheduled Patients"/>
               </Properties>
               <Events>
                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="menushowrankedActionPerformed"/>
@@ -208,6 +208,9 @@
       <Properties>
         <Property name="text" type="java.lang.String" value="Treat All"/>
       </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="txttreatAActionPerformed"/>
+      </Events>
     </Component>
     <Component class="javax.swing.JButton" name="btnclear">
       <Properties>

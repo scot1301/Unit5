@@ -1,18 +1,21 @@
 package unit5;
 
 import java.util.ArrayList;
+import java.util.ListIterator;
 import javax.swing.JOptionPane;
 
 
 public class EmergencyRoom extends javax.swing.JFrame {
 
     ArrayList list;
-    Task t;
+    ListIterator li;
+    Patient p;
     static String option;
-    static String condition = option;
+    static String c;
     public EmergencyRoom() {
         initComponents();
-        
+        list = new ArrayList();
+        li = list.listIterator();
     }
 
     
@@ -73,6 +76,11 @@ public class EmergencyRoom extends javax.swing.JFrame {
         });
 
         txttreatA.setText("Treat All");
+        txttreatA.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txttreatAActionPerformed(evt);
+            }
+        });
 
         btnclear.setText("Clear Selection");
         btnclear.addActionListener(new java.awt.event.ActionListener() {
@@ -91,7 +99,7 @@ public class EmergencyRoom extends javax.swing.JFrame {
 
         jMenu2.setText("Info");
 
-        menushowranked.setText("Show Ranked Patients");
+        menushowranked.setText("Show Scheduled Patients");
         menushowranked.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 menushowrankedActionPerformed(evt);
@@ -169,16 +177,23 @@ public class EmergencyRoom extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnscheduleActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnscheduleActionPerformed
-        
+        String nm=txtname.getText();
+        String c = option;
+        String result="";
+        Patient p = new Patient(nm, c);
         if(jbrFair.isSelected())option=jbrFair.getText();
         else if(jbrSer.isSelected())option=jbrSer.getText();
         else if(jbrCrit.isSelected())option=jbrCrit.getText();
         else option = "No condition was selected";
-        txtconditioninfo.setText(option);
-        
+        li.add(p);
+        for(int x=0; x<list.size(); x++){
+            result+= "Name: " + p + "\tCondition: "  + "   Waiting...\n";
+        }
+        txtconditioninfo.setText(result);
     }//GEN-LAST:event_btnscheduleActionPerformed
 
     private void btnclearActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnclearActionPerformed
+        txtname.setText("");
         buttonGroup1.clearSelection();
     }//GEN-LAST:event_btnclearActionPerformed
 
@@ -189,15 +204,16 @@ public class EmergencyRoom extends javax.swing.JFrame {
     private void menushowrankedActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menushowrankedActionPerformed
         String result="";
         for (int x=0; x<list.size();x++){
-            t=(Task)list.get(x);
-            result+= "Patient: " +  ":\n" + condition +"\n";
+            p=(Patient)list.get(x);
+            result+= p.toString();
         }
         JOptionPane.showMessageDialog(this,result);
     }//GEN-LAST:event_menushowrankedActionPerformed
 
-    /**
-     * @param args the command line arguments
-     */
+    private void txttreatAActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txttreatAActionPerformed
+        
+    }//GEN-LAST:event_txttreatAActionPerformed
+    
     public static void main(String args[]) {
         /* Set the Nimbus look and feel */
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
