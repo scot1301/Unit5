@@ -1,23 +1,15 @@
 package unit5;
-
-import java.util.ArrayList;
-import java.util.ListIterator;
 import javax.swing.JOptionPane;
-
 
 public class EmergencyRoom extends javax.swing.JFrame {
 
-    ArrayList list;
-    ListIterator li;
     Patient p;
-    static String option;
-    static String c;
+    LinkedPriorityQueue linkpq;
+    
     public EmergencyRoom() {
         initComponents();
-        list = new ArrayList();
-        li = list.listIterator();
+        linkpq = new LinkedPriorityQueue(3);
     }
-
     
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
@@ -82,7 +74,7 @@ public class EmergencyRoom extends javax.swing.JFrame {
             }
         });
 
-        btnclear.setText("Clear Selection");
+        btnclear.setText("Clear Form");
         btnclear.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnclearActionPerformed(evt);
@@ -93,6 +85,11 @@ public class EmergencyRoom extends javax.swing.JFrame {
 
         menuexit.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_E, java.awt.event.InputEvent.ALT_MASK));
         menuexit.setText("Exit");
+        menuexit.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                menuexitActionPerformed(evt);
+            }
+        });
         jMenu1.add(menuexit);
 
         jMenuBar1.add(jMenu1);
@@ -120,9 +117,9 @@ public class EmergencyRoom extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(jScrollPane1)
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 75, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 88, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(txtname, javax.swing.GroupLayout.PREFERRED_SIZE, 186, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(txtname, javax.swing.GroupLayout.PREFERRED_SIZE, 173, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap())
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -177,19 +174,24 @@ public class EmergencyRoom extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnscheduleActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnscheduleActionPerformed
-        String nm=txtname.getText();
-        String c = option;
-        String result="";
-        Patient p = new Patient(nm, c);
-        if(jbrFair.isSelected())option=jbrFair.getText();
-        else if(jbrSer.isSelected())option=jbrSer.getText();
-        else if(jbrCrit.isSelected())option=jbrCrit.getText();
-        else option = "No condition was selected";
-        li.add(p);
-        for(int x=0; x<list.size(); x++){
-            result+= "Name: " + p + "\tCondition: "  + "   Waiting...\n";
-        }
-        txtconditioninfo.setText(result);
+        String nm = txtname.getText();
+        int cdn = -1;
+        
+        if(jbrFair.isSelected())cdn = 0;
+        else if(jbrSer.isSelected())cdn = 1;
+        else if(jbrCrit.isSelected())cdn = 2;
+        p = new Patient(nm, cdn);
+        if(p.validate()==false){
+            JOptionPane.showMessageDialog(this, "Error - Must enter a patients name!");
+        }buttonGroup1.clearSelection();
+        txtname.setText("");
+        if(cdn == 0)
+            linkpq.enqueue(p);
+        else if(cdn == 1)
+            linkpq.enqueue(p);
+        else if(cdn == 2)
+            linkpq.enqueue(p);
+        
     }//GEN-LAST:event_btnscheduleActionPerformed
 
     private void btnclearActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnclearActionPerformed
@@ -198,21 +200,36 @@ public class EmergencyRoom extends javax.swing.JFrame {
     }//GEN-LAST:event_btnclearActionPerformed
 
     private void txttreatFActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txttreatFActionPerformed
-        
+        if(p.getCondition()==2){
+            linkpq.dequeue();
+            txtconditioninfo.setText("Patient " + p + " is treated");
+        }
+        else if (p.getCondition()==1){
+            linkpq.dequeue();
+            txtconditioninfo.setText("Patient " + p + " is treated");
+        }
+        else if (p.getCondition()==0){
+            linkpq.dequeue();
+            txtconditioninfo.setText("Patient " + p + " is treated");
+        }
     }//GEN-LAST:event_txttreatFActionPerformed
 
     private void menushowrankedActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menushowrankedActionPerformed
-        String result="";
+        /*String result="";
         for (int x=0; x<list.size();x++){
             p=(Patient)list.get(x);
             result+= p.toString();
         }
-        JOptionPane.showMessageDialog(this,result);
+        JOptionPane.showMessageDialog(this,result);*/
     }//GEN-LAST:event_menushowrankedActionPerformed
 
     private void txttreatAActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txttreatAActionPerformed
         
     }//GEN-LAST:event_txttreatAActionPerformed
+
+    private void menuexitActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuexitActionPerformed
+        System.exit(0);
+    }//GEN-LAST:event_menuexitActionPerformed
     
     public static void main(String args[]) {
         /* Set the Nimbus look and feel */

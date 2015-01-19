@@ -12,12 +12,15 @@ public class LinkedPriorityQueue implements PriorityQueue {
             list[x] = new ArrayList();
         }
     }
-    public Object dequeue(int i) {
+    public Object dequeue() {
         //identical to peekfront but you remove
-        if (list[i].isEmpty())
-			throw new IllegalStateException
-				("Queue is empty");
-		return list[i].remove(0);
+        if(list[0].isEmpty()){//search list 0, if empty move on to the next
+            if(list[1].isEmpty()){//search list 1, if empty move on to the next
+                if(list[2].isEmpty()){//search ist 2, if empty return message
+                    throw new IllegalStateException("All Patients Treated!");
+                }else return list[2].remove(0);
+            }else return list[1].remove(0);
+        }else return list[0].remove(0);
         //from the first non empty list instead of just get
     }
     
@@ -39,13 +42,19 @@ public class LinkedPriorityQueue implements PriorityQueue {
     
     public boolean hasData(){
         for (int i =0; i<size; i++){
-            return true;
-        }
-        return false;
+            if(queueSize(i)> 0){
+                return true;
+            }
+        }return false;
     }
-
-    @Override
+    
     public Object peekFront() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        if(list[0].isEmpty()){
+            if(list[1].isEmpty()){
+                if(list[2].isEmpty()){
+                    throw new IllegalStateException("All Patients Treated!");
+                }else return list[2].get(0);
+            }else return list[1].get(0);
+        }else return list[0].get(0);
     }
 }
