@@ -24,4 +24,15 @@ public class Patient {
         else 
             return true;
     }
+
+    public boolean setName(String nm) {
+        if (nm.equals(null))
+        {
+            return false;
+        }
+        else{
+            name=nm;
+            return true;
+        }
+    }
 }

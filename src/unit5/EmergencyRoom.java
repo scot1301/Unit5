@@ -1,5 +1,7 @@
 package unit5;
 
+import javax.swing.JOptionPane;
+
 public class EmergencyRoom extends javax.swing.JFrame {
 
     Patient p;
@@ -175,11 +177,15 @@ public class EmergencyRoom extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnscheduleActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnscheduleActionPerformed
-        String nm = txtname.getText();
+        String nm="";
         String cdn;
         String result="";
-        
+        if(p.setName(nm)==false){
+            JOptionPane.showMessageDialog(this, "Error - Please enter a name");
+            return;
+        }
         if(jbrFair.isSelected()){
+            nm = txtname.getText();
             cdn = jbrFair.getText();
             p = new Patient(nm, cdn);
             linkpq.enqueue(p, 0);
@@ -245,7 +251,15 @@ public class EmergencyRoom extends javax.swing.JFrame {
     }//GEN-LAST:event_menushowrankedActionPerformed
 
     private void btntreatAActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btntreatAActionPerformed
+        if(linkpq.peekFront() == ""){
+            JOptionPane.showMessageDialog(this, "There are no patients to treat");
+            return;
+        }
         
+        while(linkpq.peekFront() != ""){
+            text += linkpq.dequeue() + "has been treated\n";
+            txtconditioninfo.setText(text);
+        }
     }//GEN-LAST:event_btntreatAActionPerformed
 
     private void menuexitActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuexitActionPerformed
