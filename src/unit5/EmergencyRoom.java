@@ -1,14 +1,15 @@
 package unit5;
-import javax.swing.JOptionPane;
 
 public class EmergencyRoom extends javax.swing.JFrame {
 
     Patient p;
     LinkedPriorityQueue linkpq;
+    String text;
     
     public EmergencyRoom() {
         initComponents();
         linkpq = new LinkedPriorityQueue(3);
+        text = "";
     }
     
     @SuppressWarnings("unchecked")
@@ -24,9 +25,9 @@ public class EmergencyRoom extends javax.swing.JFrame {
         jLabel2 = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
         txtconditioninfo = new javax.swing.JTextArea();
-        txttreatF = new javax.swing.JButton();
+        btntreatF = new javax.swing.JButton();
         btnschedule = new javax.swing.JButton();
-        txttreatA = new javax.swing.JButton();
+        btntreatA = new javax.swing.JButton();
         btnclear = new javax.swing.JButton();
         jMenuBar1 = new javax.swing.JMenuBar();
         jMenu1 = new javax.swing.JMenu();
@@ -53,10 +54,10 @@ public class EmergencyRoom extends javax.swing.JFrame {
         txtconditioninfo.setRows(5);
         jScrollPane1.setViewportView(txtconditioninfo);
 
-        txttreatF.setText("Treat First");
-        txttreatF.addActionListener(new java.awt.event.ActionListener() {
+        btntreatF.setText("Treat First");
+        btntreatF.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txttreatFActionPerformed(evt);
+                btntreatFActionPerformed(evt);
             }
         });
 
@@ -67,10 +68,10 @@ public class EmergencyRoom extends javax.swing.JFrame {
             }
         });
 
-        txttreatA.setText("Treat All");
-        txttreatA.addActionListener(new java.awt.event.ActionListener() {
+        btntreatA.setText("Treat All");
+        btntreatA.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txttreatAActionPerformed(evt);
+                btntreatAActionPerformed(evt);
             }
         });
 
@@ -135,8 +136,8 @@ public class EmergencyRoom extends javax.swing.JFrame {
                         .addComponent(btnclear)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(txttreatF, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(txttreatA, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(btntreatF, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(btntreatA, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(btnschedule, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 83, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(41, 41, 41))
         );
@@ -152,9 +153,9 @@ public class EmergencyRoom extends javax.swing.JFrame {
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(btnschedule)
                         .addGap(18, 18, 18)
-                        .addComponent(txttreatF)
+                        .addComponent(btntreatF)
                         .addGap(18, 18, 18)
-                        .addComponent(txttreatA))
+                        .addComponent(btntreatA))
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(jLabel2)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -175,22 +176,37 @@ public class EmergencyRoom extends javax.swing.JFrame {
 
     private void btnscheduleActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnscheduleActionPerformed
         String nm = txtname.getText();
-        int cdn = -1;
+        String cdn;
+        String result="";
         
-        if(jbrFair.isSelected())cdn = 0;
-        else if(jbrSer.isSelected())cdn = 1;
-        else if(jbrCrit.isSelected())cdn = 2;
-        p = new Patient(nm, cdn);
-        if(p.validate()==false){
-            JOptionPane.showMessageDialog(this, "Error - Must enter a patients name!");
-        }buttonGroup1.clearSelection();
+        if(jbrFair.isSelected()){
+            cdn = jbrFair.getText();
+            p = new Patient(nm, cdn);
+            linkpq.enqueue(p, 0);
+            result += nm + "\t" + cdn + "\tis waiting...\n";
+            text += result;
+            txtconditioninfo.setText(text);
+        }
+        else if(jbrSer.isSelected()){
+            cdn = jbrSer.getText();
+            p = new Patient(nm, cdn);
+            linkpq.enqueue(p, 1);
+            result += nm + "\t" + cdn + "\tis waiting...\n";
+            text += result;
+            txtconditioninfo.setText(text);
+        }
+        else if(jbrCrit.isSelected()){
+            cdn = jbrCrit.getText();
+            p = new Patient(nm, cdn);
+            linkpq.enqueue(p, 2);
+            result += nm + "\t" + cdn + "\tis waiting...\n";
+            text += result;            
+            txtconditioninfo.setText(text);
+        }
+        
+        buttonGroup1.clearSelection();
         txtname.setText("");
-        if(cdn == 0)
-            linkpq.enqueue(p);
-        else if(cdn == 1)
-            linkpq.enqueue(p);
-        else if(cdn == 2)
-            linkpq.enqueue(p);
+        
         
     }//GEN-LAST:event_btnscheduleActionPerformed
 
@@ -199,20 +215,25 @@ public class EmergencyRoom extends javax.swing.JFrame {
         buttonGroup1.clearSelection();
     }//GEN-LAST:event_btnclearActionPerformed
 
-    private void txttreatFActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txttreatFActionPerformed
-        if(p.getCondition()==2){
+    private void btntreatFActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btntreatFActionPerformed
+        if(p.getCondition()==jbrCrit.getText()){
+            text += "Patient " + p.getName() + " is treated\n";
+            txtconditioninfo.setText(text);
+            linkpq.peekFront();
             linkpq.dequeue();
-            txtconditioninfo.setText("Patient " + p + " is treated");
         }
-        else if (p.getCondition()==1){
+        else if (p.getCondition()==jbrSer.getText()){
+            text += "Patient " + p.getName() + " is treated\n";
+            txtconditioninfo.setText(text);
+            linkpq.peekFront();
+        }
+        else if (p.getCondition()==jbrFair.getText()){
+            text += "Patient " + p.getName() + " is treated\n";
+            txtconditioninfo.setText(text);
+            linkpq.peekFront();
             linkpq.dequeue();
-            txtconditioninfo.setText("Patient " + p + " is treated");
         }
-        else if (p.getCondition()==0){
-            linkpq.dequeue();
-            txtconditioninfo.setText("Patient " + p + " is treated");
-        }
-    }//GEN-LAST:event_txttreatFActionPerformed
+    }//GEN-LAST:event_btntreatFActionPerformed
 
     private void menushowrankedActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menushowrankedActionPerformed
         /*String result="";
@@ -223,9 +244,9 @@ public class EmergencyRoom extends javax.swing.JFrame {
         JOptionPane.showMessageDialog(this,result);*/
     }//GEN-LAST:event_menushowrankedActionPerformed
 
-    private void txttreatAActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txttreatAActionPerformed
+    private void btntreatAActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btntreatAActionPerformed
         
-    }//GEN-LAST:event_txttreatAActionPerformed
+    }//GEN-LAST:event_btntreatAActionPerformed
 
     private void menuexitActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuexitActionPerformed
         System.exit(0);
@@ -266,6 +287,8 @@ public class EmergencyRoom extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnclear;
     private javax.swing.JButton btnschedule;
+    private javax.swing.JButton btntreatA;
+    private javax.swing.JButton btntreatF;
     private javax.swing.ButtonGroup buttonGroup1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
@@ -280,7 +303,5 @@ public class EmergencyRoom extends javax.swing.JFrame {
     private javax.swing.JMenuItem menushowranked;
     private javax.swing.JTextArea txtconditioninfo;
     private javax.swing.JTextField txtname;
-    private javax.swing.JButton txttreatA;
-    private javax.swing.JButton txttreatF;
     // End of variables declaration//GEN-END:variables
 }

@@ -95,8 +95,8 @@
               </Group>
               <EmptySpace max="32767" attributes="0"/>
               <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                  <Component id="txttreatF" alignment="1" max="32767" attributes="0"/>
-                  <Component id="txttreatA" alignment="1" max="32767" attributes="0"/>
+                  <Component id="btntreatF" alignment="1" max="32767" attributes="0"/>
+                  <Component id="btntreatA" alignment="1" max="32767" attributes="0"/>
                   <Component id="btnschedule" alignment="1" min="-2" pref="83" max="-2" attributes="0"/>
               </Group>
               <EmptySpace min="-2" pref="41" max="-2" attributes="0"/>
@@ -116,9 +116,9 @@
                   <Group type="102" alignment="0" attributes="0">
                       <Component id="btnschedule" min="-2" max="-2" attributes="0"/>
                       <EmptySpace type="separate" max="-2" attributes="0"/>
-                      <Component id="txttreatF" min="-2" max="-2" attributes="0"/>
+                      <Component id="btntreatF" min="-2" max="-2" attributes="0"/>
                       <EmptySpace type="separate" max="-2" attributes="0"/>
-                      <Component id="txttreatA" min="-2" max="-2" attributes="0"/>
+                      <Component id="btntreatA" min="-2" max="-2" attributes="0"/>
                   </Group>
                   <Group type="102" alignment="0" attributes="0">
                       <Component id="jLabel2" min="-2" max="-2" attributes="0"/>
@@ -191,12 +191,12 @@
         </Component>
       </SubComponents>
     </Container>
-    <Component class="javax.swing.JButton" name="txttreatF">
+    <Component class="javax.swing.JButton" name="btntreatF">
       <Properties>
         <Property name="text" type="java.lang.String" value="Treat First"/>
       </Properties>
       <Events>
-        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="txttreatFActionPerformed"/>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btntreatFActionPerformed"/>
       </Events>
     </Component>
     <Component class="javax.swing.JButton" name="btnschedule">
@@ -207,12 +207,12 @@
         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnscheduleActionPerformed"/>
       </Events>
     </Component>
-    <Component class="javax.swing.JButton" name="txttreatA">
+    <Component class="javax.swing.JButton" name="btntreatA">
       <Properties>
         <Property name="text" type="java.lang.String" value="Treat All"/>
       </Properties>
       <Events>
-        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="txttreatAActionPerformed"/>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btntreatAActionPerformed"/>
       </Events>
     </Component>
     <Component class="javax.swing.JButton" name="btnclear">

@@ -3,9 +3,9 @@ package unit5;
 public class Patient {
     
     private String name;
-    private int condition;
+    private String condition;
     
-    public Patient(String nm, int cdn) {
+    public Patient(String nm, String cdn) {
         name = nm;
         condition = cdn;
     }
@@ -14,7 +14,7 @@ public class Patient {
         return name;
     }
 
-    public int getCondition() {
+    public String getCondition() {
         return condition;
     }
     
