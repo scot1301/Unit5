@@ -193,7 +193,7 @@
     </Container>
     <Component class="javax.swing.JButton" name="btntreatF">
       <Properties>
-        <Property name="text" type="java.lang.String" value="Treat First"/>
+        <Property name="text" type="java.lang.String" value="Treat Next"/>
       </Properties>
       <Events>
         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btntreatFActionPerformed"/>

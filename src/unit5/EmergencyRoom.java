@@ -13,7 +13,6 @@ public class EmergencyRoom extends javax.swing.JFrame {
         linkpq = new LinkedPriorityQueue(3);
         text = "";
     }
-    
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -56,7 +55,7 @@ public class EmergencyRoom extends javax.swing.JFrame {
         txtconditioninfo.setRows(5);
         jScrollPane1.setViewportView(txtconditioninfo);
 
-        btntreatF.setText("Treat First");
+        btntreatF.setText("Treat Next");
         btntreatF.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btntreatFActionPerformed(evt);
@@ -177,42 +176,30 @@ public class EmergencyRoom extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnscheduleActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnscheduleActionPerformed
-        String nm="";
-        String cdn;
-        String result="";
-        if(p.setName(nm)==false){
-            JOptionPane.showMessageDialog(this, "Error - Please enter a name");
-            return;
-        }
-        if(jbrFair.isSelected()){
-            nm = txtname.getText();
-            cdn = jbrFair.getText();
+        String nm;
+        String cdn = "";
+        nm = txtname.getText();
+        cdn = buttonGroup1.getSelection().getActionCommand();
+        
+        if(jbrCrit.isSelected()){
+            cdn = jbrCrit.getText();
             p = new Patient(nm, cdn);
             linkpq.enqueue(p, 0);
-            result += nm + "\t" + cdn + "\tis waiting...\n";
-            text += result;
-            txtconditioninfo.setText(text);
         }
         else if(jbrSer.isSelected()){
             cdn = jbrSer.getText();
             p = new Patient(nm, cdn);
             linkpq.enqueue(p, 1);
-            result += nm + "\t" + cdn + "\tis waiting...\n";
-            text += result;
-            txtconditioninfo.setText(text);
         }
-        else if(jbrCrit.isSelected()){
-            cdn = jbrCrit.getText();
+        else if(jbrFair.isSelected()){
+            cdn = jbrFair.getText();
             p = new Patient(nm, cdn);
             linkpq.enqueue(p, 2);
-            result += nm + "\t" + cdn + "\tis waiting...\n";
-            text += result;            
-            txtconditioninfo.setText(text);
         }
-        
-        buttonGroup1.clearSelection();
         txtname.setText("");
-        
+        buttonGroup1.clearSelection();
+        text += p.getName() + "\t" + p.getCondition() + "\tis waiting...\n";
+        txtconditioninfo.setText(text);
         
     }//GEN-LAST:event_btnscheduleActionPerformed
 
@@ -222,32 +209,28 @@ public class EmergencyRoom extends javax.swing.JFrame {
     }//GEN-LAST:event_btnclearActionPerformed
 
     private void btntreatFActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btntreatFActionPerformed
-        if(p.getCondition()==jbrCrit.getText()){
-            text += "Patient " + p.getName() + " is treated\n";
-            txtconditioninfo.setText(text);
-            linkpq.peekFront();
-            linkpq.dequeue();
-        }
-        else if (p.getCondition()==jbrSer.getText()){
-            text += "Patient " + p.getName() + " is treated\n";
-            txtconditioninfo.setText(text);
-            linkpq.peekFront();
-        }
-        else if (p.getCondition()==jbrFair.getText()){
-            text += "Patient " + p.getName() + " is treated\n";
-            txtconditioninfo.setText(text);
-            linkpq.peekFront();
-            linkpq.dequeue();
-        }
+        if(linkpq.peekFront() != "")
+            text += linkpq.dequeue() + " has been treated\n";
+        else if (linkpq.peekFront() != "")
+            text += linkpq.dequeue() + " has been treated\n";
+            
+        else if (linkpq.peekFront() != "")
+            text += linkpq.dequeue() + " has been treated\n";
+        txtconditioninfo.setText(text);
     }//GEN-LAST:event_btntreatFActionPerformed
 
     private void menushowrankedActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menushowrankedActionPerformed
-        /*String result="";
-        for (int x=0; x<list.size();x++){
-            p=(Patient)list.get(x);
-            result+= p.toString();
+        String result="";
+        if(linkpq.peekFront() == ""){
+            JOptionPane.showMessageDialog(this, "There are no patients listed");
+            return;
         }
-        JOptionPane.showMessageDialog(this,result);*/
+        while(linkpq.peekFront() != ""){
+            for(int x =-1; x<2; x++){
+            result += linkpq.enqueue(p, );
+            }
+        }
+        JOptionPane.showMessageDialog(this,result);
     }//GEN-LAST:event_menushowrankedActionPerformed
 
     private void btntreatAActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btntreatAActionPerformed
@@ -255,9 +238,8 @@ public class EmergencyRoom extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(this, "There are no patients to treat");
             return;
         }
-        
         while(linkpq.peekFront() != ""){
-            text += linkpq.dequeue() + "has been treated\n";
+            text += linkpq.dequeue() + " has been treated\n";
             txtconditioninfo.setText(text);
         }
     }//GEN-LAST:event_btntreatAActionPerformed

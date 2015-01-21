@@ -18,21 +18,13 @@ public class Patient {
         return condition;
     }
     
-    public boolean validate(){
-        if (name== null || name== "")
+    public boolean validate() {
+        if (name== null || name== "" || condition == null || condition == "")
             return false;
         else 
             return true;
     }
-
-    public boolean setName(String nm) {
-        if (nm.equals(null))
-        {
-            return false;
-        }
-        else{
-            name=nm;
-            return true;
-        }
+    public String toString() {
+        return name + " with " + condition + " condition ";
     }
 }
