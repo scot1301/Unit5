@@ -29,12 +29,12 @@
             <Property name="text" type="java.lang.String" value="Info"/>
           </Properties>
           <SubComponents>
-            <MenuItem class="javax.swing.JMenuItem" name="menushowranked">
+            <MenuItem class="javax.swing.JMenuItem" name="menushowfirstpriority">
               <Properties>
-                <Property name="text" type="java.lang.String" value="Show Scheduled Patients"/>
+                <Property name="text" type="java.lang.String" value="Show First Priority Patient"/>
               </Properties>
               <Events>
-                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="menushowrankedActionPerformed"/>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="menushowfirstpriorityActionPerformed"/>
               </Events>
             </MenuItem>
           </SubComponents>

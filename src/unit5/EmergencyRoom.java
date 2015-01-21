@@ -34,7 +34,7 @@ public class EmergencyRoom extends javax.swing.JFrame {
         jMenu1 = new javax.swing.JMenu();
         menuexit = new javax.swing.JMenuItem();
         jMenu2 = new javax.swing.JMenu();
-        menushowranked = new javax.swing.JMenuItem();
+        menushowfirstpriority = new javax.swing.JMenuItem();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -98,13 +98,13 @@ public class EmergencyRoom extends javax.swing.JFrame {
 
         jMenu2.setText("Info");
 
-        menushowranked.setText("Show Scheduled Patients");
-        menushowranked.addActionListener(new java.awt.event.ActionListener() {
+        menushowfirstpriority.setText("Show First Priority Patient");
+        menushowfirstpriority.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                menushowrankedActionPerformed(evt);
+                menushowfirstpriorityActionPerformed(evt);
             }
         });
-        jMenu2.add(menushowranked);
+        jMenu2.add(menushowfirstpriority);
 
         jMenuBar1.add(jMenu2);
 
@@ -176,11 +176,14 @@ public class EmergencyRoom extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnscheduleActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnscheduleActionPerformed
-        String nm;
+        String nm = "";
         String cdn = "";
+        try{
         nm = txtname.getText();
         cdn = buttonGroup1.getSelection().getActionCommand();
-        
+        }catch(Exception e){
+            JOptionPane.showMessageDialog(this,"Please select and option");
+        }
         if(jbrCrit.isSelected()){
             cdn = jbrCrit.getText();
             p = new Patient(nm, cdn);
@@ -213,25 +216,21 @@ public class EmergencyRoom extends javax.swing.JFrame {
             text += linkpq.dequeue() + " has been treated\n";
         else if (linkpq.peekFront() != "")
             text += linkpq.dequeue() + " has been treated\n";
-            
         else if (linkpq.peekFront() != "")
             text += linkpq.dequeue() + " has been treated\n";
         txtconditioninfo.setText(text);
     }//GEN-LAST:event_btntreatFActionPerformed
 
-    private void menushowrankedActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menushowrankedActionPerformed
+    private void menushowfirstpriorityActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menushowfirstpriorityActionPerformed
         String result="";
         if(linkpq.peekFront() == ""){
             JOptionPane.showMessageDialog(this, "There are no patients listed");
             return;
         }
         while(linkpq.peekFront() != ""){
-            for(int x =-1; x<2; x++){
-            result += linkpq.enqueue(p, );
-            }
-        }
-        JOptionPane.showMessageDialog(this,result);
-    }//GEN-LAST:event_menushowrankedActionPerformed
+            result += p.getName() + ": " + p.getCondition() + " is first priority\n";
+        }JOptionPane.showMessageDialog(this,result);
+    }//GEN-LAST:event_menushowfirstpriorityActionPerformed
 
     private void btntreatAActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btntreatAActionPerformed
         if(linkpq.peekFront() == ""){
@@ -296,7 +295,7 @@ public class EmergencyRoom extends javax.swing.JFrame {
     private javax.swing.JRadioButton jbrFair;
     private javax.swing.JRadioButton jbrSer;
     private javax.swing.JMenuItem menuexit;
-    private javax.swing.JMenuItem menushowranked;
+    private javax.swing.JMenuItem menushowfirstpriority;
     private javax.swing.JTextArea txtconditioninfo;
     private javax.swing.JTextField txtname;
     // End of variables declaration//GEN-END:variables
